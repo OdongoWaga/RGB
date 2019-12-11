@@ -10,7 +10,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello Worlds")
+        HStack {
+            VStack {
+                /*@START_MENU_TOKEN@*/Color(red: 0.5, green: 0.5, blue: 0.5)/*@END_MENU_TOKEN@*/
+                Text("Match this color")
+            }
+            VStack {
+                /*@START_MENU_TOKEN@*/Color(red: 0.5, green: 0.5, blue: 0.5)/*@END_MENU_TOKEN@*/
+                Text("R:127 G:127 B:127")
+            }
+        }
     }
 }
 
