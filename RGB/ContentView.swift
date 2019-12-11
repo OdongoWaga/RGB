@@ -16,6 +16,7 @@ struct ContentView: View {
     @State var rGuess: Double
     @State var gGuess: Double
     @State var bGuess: Double
+  
     var body: some View {
         
         
@@ -26,15 +27,17 @@ struct ContentView: View {
                     Text("Match this color")
                 }
                 VStack {
-                    /*@START_MENU_TOKEN@*/Color(red: 0.5, green: 0.5, blue: 0.5)/*@END_MENU_TOKEN@*/
-                    Text("R:127 G:127 B:127")
+                    Color(red: rGuess, green: gGuess, blue: bGuess)
+                    Text("R:\(Int(rGuess * 255.0))" + " G:\(Int(gGuess * 255.0))"+" B:\(Int(bGuess * 255))")
                 }
             }
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                 Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
             }
             
-            Slider(value: .constant(0.5))
+            ColorSlider(value: $rGuess, textColor:.red)
+            ColorSlider(value: $gGuess, textColor:.red)
+            ColorSlider(value: $bGuess, textColor:.blue)
 
         }
     }
@@ -42,6 +45,18 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(rGuess: 0.5, gGuess: 0.5, bGuess: 0.5).previewLayout(.fixed(width: 568, height: 320))
+        ContentView(rGuess: 0.8, gGuess: 0.5, bGuess: 0.5).previewLayout(.fixed(width: 568, height: 320))
+    }
+}
+
+struct ColorSlider: View {
+    @Binding var value: Double
+    var textColor:Color
+    var body: some View {
+        HStack {
+            Text("0").foregroundColor(textColor)
+            Slider(value: $value)
+            Text("255").foregroundColor(textColor)
+        }.padding(.horizontal)
     }
 }
