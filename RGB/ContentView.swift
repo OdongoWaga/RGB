@@ -16,6 +16,19 @@ struct ContentView: View {
     @State var rGuess: Double
     @State var gGuess: Double
     @State var bGuess: Double
+    @State var showAlert = false
+    
+    func computeScore()-> Int {
+        let rDiff = rGuess - rTarget
+        let gDiff = gGuess - gTarget
+        let bDiff = bGuess - bTarget
+        
+        let diff = sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff)
+        
+        return Int((1.0 - diff) * 100.0 + 0.5)
+    }
+    
+   
   
     var body: some View {
         
@@ -31,12 +44,15 @@ struct ContentView: View {
                     Text("R:\(Int(rGuess * 255.0))" + " G:\(Int(gGuess * 255.0))"+" B:\(Int(bGuess * 255))")
                 }
             }
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
-            }
+            Button(action: { self.showAlert = true}) {
+                   Text("Hit Me!")
+               }.alert(isPresented: $showAlert) {
+               Alert(title: Text("Your Score"),
+               message: Text(String(computeScore())))
+               }.padding()
             
             ColorSlider(value: $rGuess, textColor:.red)
-            ColorSlider(value: $gGuess, textColor:.red)
+            ColorSlider(value: $gGuess, textColor:.green)
             ColorSlider(value: $bGuess, textColor:.blue)
 
         }
@@ -45,7 +61,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(rGuess: 0.8, gGuess: 0.5, bGuess: 0.5).previewLayout(.fixed(width: 568, height: 320))
+        ContentView(rGuess: 0.5, gGuess: 0.5, bGuess: 0.5).previewLayout(.fixed(width: 568, height: 320))
     }
 }
 
